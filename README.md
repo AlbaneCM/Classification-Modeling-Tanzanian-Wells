@@ -339,6 +339,7 @@ For additional info, contact [Albane Colmenares](mailto:albane.colmenares@gmail.
 
 ## Repository Structure
 ```
+├── data
 ├── images
 ├── .gitignore
 ├── README.md
