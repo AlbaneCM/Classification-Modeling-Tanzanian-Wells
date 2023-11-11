@@ -81,16 +81,22 @@ Both datasets are merged on the 'id' column.
 
 ### 4. b. Data transformation & cleaning
 
-In this section, missing values were handled, unnecessary columns were removed based on context and to avoid duplicates. Categorized features were further grouped following research and finally transformed through one-hot encoding. 
+In this section, the following was handled:
+1. Missing values were verified and handled
+2. Unnecessary columns were removed 
+3. Transformed the classification into a binary one - which partly addressed the dataset imbalance
+4. Converted other binary columns 
+5. Categorized features with too many details
+6. One-Hot Encoded Categorical Variables 
+7. Grouped Numeric and Encoded Categorical Features 
 
-An initial exploration was done by visualizing box plots of a set of columns, which led to the conclusion that scaling would be required.
-
+And finally initially explored the data by visualizing box plots of a set of columns, which led to the conclusion that scaling would be required.
 
 The below  columns were removed for the following reasons:
 
-1. Irrelevant for predictions (i.e. date the row was entered, waterpoint name)
-2. Contains similar information as another column (i.e. extraction_type, water_quality) 
-3. Contains information which would require additional conversion (i.e. region_code, district_code)
+  1. Irrelevant for predictions (i.e. date the row was entered, waterpoint name)
+  2. Contains similar information as another column (i.e. extraction_type, water_quality) 
+  3. Contains information which would require additional conversion (i.e. region_code, district_code)
 
 * `id`: the identification number assigned to the water well 
 * `date_recorded`: The date the row was entered
