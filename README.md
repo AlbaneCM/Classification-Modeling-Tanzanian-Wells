@@ -1,7 +1,7 @@
 # Tanzanian Wells - Classification Modeling
 
 <p align="center">
-  <img src="images/tanzania-water-well-3.jpg" />
+  <img src="images/tanzania-water-well-21.jpg" />
 </p>
 
 ## 1. Overview
