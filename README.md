@@ -12,8 +12,15 @@ The organization of this notebook follows the CRoss Industry Standard Process fo
 
 ## 2. Business Understanding
 
-This notebook examines Tanzania's water wells, and uses classification models to predict whether a water point is non-fonctional.
-The organization of this notebook follows the CRoss Industry Standard Process for Data Mining (CRISP-DM) is a process model that serves as the base for a data science process.
+According to a World Bank [study](https://www.worldbank.org/en/country/tanzania/publication/tanzania-economic-update-universal-access-to-water-and-sanitation-could-transform-social-and-economic-development#:~:text=Only%2061%25%20of%20households%20in,hygiene%2C%20according%20to%20SDG%20definitions), access to a basic water supply is available to just 61% of households in Tanzania, basic sanitation is accessible to 32%, and basic hygiene is within reach for less than half of households.
+
+The country has a substantial number of existing water points, but a considerable portion of these wells either require maintenance or have completely failed, resulting in limited access to clean water.
+
+The objective of this project is to develop a machine learning classifier that can predict if a water well in Tanzania is non functional. By analyzing various factors such as the type of pump, the quantity of water in the well and when or who installed it, we aim to categorize wells into different conditions, such as 'non functional' or 'functional'. 
+
+This predictive model will serve as a valuable tool for organizations and non-governmental agencies involved in water resource management and infrastructure development in Tanzania.
+
+The target audience for this project is Non-Governmental Organizations (NGOs) focusing on improving access to clean water for populations in Tanzania such as [WaterAid](https://www.wateraid.org/where-we-work/tanzania), [Charity Water](https://www.charitywater.org/our-projects/tanzania) or [Tanzania Water Project](https://www.tanzaniawaterproject.org/). 
 
 ## 3. Data Understanding
 
@@ -98,32 +105,7 @@ The below  columns were removed for the following reasons:
   2. Contains similar information as another column (i.e. extraction_type, water_quality) 
   3. Contains information which would require additional conversion (i.e. region_code, district_code)
 
-* `id`: the identification number assigned to the water well 
-* `date_recorded`: The date the row was entered
-* `longitude`: GPS coordinate
-* `latitude`: GPS coordinate
-* `wpt_name`: Name of the waterpoint if there is one
-* `num_private`: undefined
-* `subvillage`: Geographic location
-* `region_code`: Geographic location (coded)
-* `region`: Geographic location. There are 21 regions, while location by basin can be provided with 9 categories. Choosing less detailed categories is preferred to prevent creating a sparse dataframe 
-* `district_code`: Geographic location (coded)
-* `lga`: Geographic location
-* `ward`: Geographic location
-* `recorded_by`: Group entering this row of data
-* `scheme_management`: Who operates the waterpoint
-* `extraction_type`: The kind of extraction the waterpoint uses
-* `extraction_type_group`: The kind of extraction the waterpoint uses
-* `management_group`: How the waterpoint is managed
-* `payment`: What the water costs
-* `payment_type`: Frequency of payment: while it would be interesting to understand link between payment and well functionality, this feature has no link with the quality of water type and should be investigated separately
-* `water_quality`: The quality of the water
-* `quantity_group`: The quantity of water
-* `source`: The source of the water
-* `source_class`: The source of the water
-* `waterpoint_type`: The kind of waterpoint
-* `waterpoint_type_group`: provides similar information as source type and extraction type
-
+From 39 columns, 15 were kept: amount_tsh, funder, gps_height, installer, basin, population, public_meeting, permit, construction_year, extraction_type_class, management, quality_group, quantity, source_type, status_group.
 
 ## 5. Modeling
 For each model, the same structure was followed: 
@@ -184,7 +166,6 @@ The true positive rate metric has highly increased compared to the 0.48666175386
 <u>Accuracy Score</u>: 0.749023569023569
 The model correctly predicted close to 75% of wells' conditions. This is an improvement compared to the previously recorded 0.7140740740740741
 
-![](images/knn_models.png)
 
 
 ### 5. c. Decision Trees
@@ -310,22 +291,24 @@ The most important features that will help determining the most accurate predict
 6. <u>extraction_type_class_other</u>: the kind of extraction the waterpoint uses. In this case, the specific feature impacting is any other extraction type than 'gravity', 'submersible', 'handpump', 'motorpump', 'wind-powered', or 'rope pump'
 
 
-#### 7.c. Purposes of Model's Predictions
+#### 7.c. Recommendations
 
-The predictions provided by this model would be useful for an NGO aiming at predicting whether water wells are non functional to improve their maintenance. There also are limits to how useful these predictions can be.  
+The higher the above features are on the graph, the more likely a well will be non-functional. 
 
-* <u>Useful</u>: when prioritizing maintenance efforts for water wells in Tanzania. It can help identify non-functional wells that require immediate attention, enabling NGOs to allocate their resources and funding efficiently.
-* <u>Not useful</u>: where the input data is outdated or inaccurate. The source training the model dates from data from 2011 to 2013. In addition, if only part of the information is available, or not the most important features are given, the predictions may not be reliable. 
-    This model was based on information from Tanzania only. Predicting a water point's functionality in another country may not be done with this model.
 
-#### 7.d. How to Achieve Better Predictions
+Start by: <br>
+1. Ensuring the well is indeed non-functional
+2. Then, allocate resources and plan to repair ASAP
 
-Suggestions for how certain input variables might be modified to achieve  better predictions: 
 
-1. Enhance data quality by collecting accurate and complete input variables, including current well conditions, pump types, and management details.
-2. Include local knowledge and qualitative data by collaborating with local communities to gather valuable insights not present in the existing dataset.
-3. Promote open data sharing with other NGOs working towards a common goal, fostering a shared knowledge of well information for up-to-date results.
-4. Implement a feedback system for local communities to validate predictions, ensuring continuous model improvement.
+The wells with:
+* A higher altitude
+* An older construction date
+* A larger population depending on it
+* A quantity level identified as dry
+
+
+Once these wells were taken care of, focus on those where the next section of features were noted.
 
 
 ## 8. Limits & Next Steps
